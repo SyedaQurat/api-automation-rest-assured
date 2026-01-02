@@ -1,0 +1,1 @@
+https://central.sonatype.com/artifact/io.qameta.allure/allure-testng/2.25.0

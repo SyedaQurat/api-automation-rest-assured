@@ -1,0 +1,43 @@
+name: Java CI
+
+on: [ push, pull_request ]
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v3
+
+        - name: Set up JDK
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+
+        - name: Build with Maven
+          run: mvn clean test
+
+        - name: Install Allure CLI
+          if: always()
+          run: |
+            wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+            tar -zxvf allure-2.27.0.tgz
+            sudo rm -rf /opt/allure/allure-2.27.0
+            sudo rm -f /usr/bin/allure
+            sudo mv allure-2.27.0 /opt/allure
+            sudo ln -s /opt/allure/bin/allure /usr/bin/allure 
+
+        - name: Generate Allure report
+          run: |
+              allure generate allure-results --clean -o allure-report
+              ls -la allure-report
+
+        - name: Upload Allure report artifact
+          uses: actions/upload-artifact@v3
+          with:
+              name: allure-report
+              path: allure-report
+
+        - name: Clean up Allure results
+          run: rm -rf allure-results
+
