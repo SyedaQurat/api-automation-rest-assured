@@ -47,6 +47,8 @@ public class FakeAPITest {
         RestAssured.given()
                 .log().all()
                 .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .header("User-Agent", "Mozilla/5.0 (GitHub Actions)")
                 .body(product)
                 .when().post(BASE_URL).then().statusCode(201);
     }
