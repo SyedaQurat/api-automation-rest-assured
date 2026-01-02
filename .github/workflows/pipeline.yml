@@ -30,6 +30,9 @@ jobs:
           run: | 
             mvn clean test -Dgroups=smoke
 
+        - name: List Allure Results
+          run: ls -la target/allure-results
+
         - name: Upload Allure Results
           uses: actions/upload-artifact@v4
           with:
