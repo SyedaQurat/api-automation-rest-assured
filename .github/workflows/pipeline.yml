@@ -29,3 +29,23 @@ jobs:
         - name: Run tests
           run: | 
             mvn clean test -Dgroups=smoke
+
+        - name: Upload Allure Results
+          uses: actions/upload-artifact@v4
+          with:
+            name: allure-results
+            path: target/allure-results
+
+download-artifact:
+    name: Download Allure Results
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Allure Results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results
+          path: target/allure-results
+      - name: List Downloaded Allure Results
+        run: ls -la target/allure-results
