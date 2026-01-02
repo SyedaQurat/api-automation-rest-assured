@@ -52,7 +52,9 @@ jobs:
 #            fi
 
         - name: Run tests
-          run: mvn clean test -Dgroups=smoke
+          run: | 
+            mvn clean test -Dgroups=smoke
+            echo pwd
 
         - name: Debug Allure results
           run: |
