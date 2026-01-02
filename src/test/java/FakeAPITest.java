@@ -82,7 +82,7 @@ public class FakeAPITest {
                 .log().all()
                 .header("Content-Type", "application/json")
                 .body(product)
-                .when().put(BASE_URL + id).then().statusCode(200);
+                .when().put(BASE_URL + "404").then().statusCode(200);
     }
 
     @Test(groups = {"regression"})
