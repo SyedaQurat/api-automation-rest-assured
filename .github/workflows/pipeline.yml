@@ -32,11 +32,27 @@ jobs:
             java-version: '17'
             distribution: 'temurin'
 
-        - name: Prepare Allure folder
-          run: mkdir -p target/allure-results
+#        - name: Prepare Allure folder
+#          run: |
+#            mkdir -p target/allure-results
+#            echo "Listing target/allure-results:"
+#            ls -la target/allure-results
+
+        - name: Debug Allure results
+          if: always()
+          run: |
+            echo "Checking target/allure-results folder..."
+            if [ -d target/allure-results ]; then
+            echo "Folder exists!"
+            ls -la target/allure-results
+            else
+            echo "Folder target/allure-results does NOT exist!"
+            mkdir -p target/allure-results
+            echo "Created empty folder so upload step won't fail."
+            fi    
 
         - name: Run tests
-          run: mvn -B -q test -Dgroups=smoke
+          run: mvn test -Dgroups=smoke
 
         - name: Upload Allure results
           if: always()
