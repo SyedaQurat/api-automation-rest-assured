@@ -11,8 +11,8 @@ import org.testng.annotations.Test;
 @Feature("Products API")
 public class FakeAPITest {
 
-    int id = 1;
-    private final String BASE_URL = "https://fakestoreapi.com/products/";
+    int id = 101;
+    private final String BASE_URL = "https://jsonplaceholder.typicode.com/posts/";
 
     @Test(groups = {"smoke", "regression"})
     @Severity(SeverityLevel.CRITICAL)
@@ -20,7 +20,7 @@ public class FakeAPITest {
     public void getProducts() {
         RestAssured.given()
                 .log().all()
-                .when().get("https://jsonplaceholder.typicode.com/posts/").then().statusCode(200);
+                .when().get(BASE_URL).then().statusCode(200);
     }
 
     @Test(groups = {"regression"})
@@ -37,11 +37,10 @@ public class FakeAPITest {
     @Description("ADD product returns status 200")
     public void addProducts() {
         Products product = Products.builder()
-                .id(1)
+                .id(101)
                 .title("Shirt")
-                .price(19.99)
-                .category("clothes")
-                .description("full sleeves")
+                .body("bar")
+                .userId(1)
                 .build();
 
         RestAssured.given()
@@ -58,11 +57,10 @@ public class FakeAPITest {
     @Description("ADD product with Incorrect URL returns status 404")
     public void addProductsWith404() {
         Products product = Products.builder()
-                .id(1)
+                .id(101)
                 .title("Shirt")
-                .price(19.99)
-                .category("clothes")
-                .description("full sleeves")
+                .body("bar")
+                .userId(1)
                 .build();
 
         RestAssured.given()
