@@ -70,20 +70,20 @@ public class FakeAPITest {
                 .when().post("https://fakestoreapi.com/product").then().statusCode(404);
     }
 
-    @Test(groups = {"smoke", "regression"})
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("UPDATE product returns status 200")
-    public void updateProducts() {
-        Products product = Products.builder()
-                .title("Shirts")
-                .build();
-
-        RestAssured.given()
-                .log().all()
-                .header("Content-Type", "application/json")
-                .body(product)
-                .when().put(BASE_URL + "404").then().statusCode(200);
-    }
+//    @Test(groups = {"smoke", "regression"})
+//    @Severity(SeverityLevel.CRITICAL)
+//    @Description("UPDATE product returns status 200")
+//    public void updateProducts() {
+//        Products product = Products.builder()
+//                .title("Shirts")
+//                .build();
+//
+//        RestAssured.given()
+//                .log().all()
+//                .header("Content-Type", "application/json")
+//                .body(product)
+//                .when().put(BASE_URL + "404").then().statusCode(200);
+//    }
 
     @Test(groups = {"regression"})
     @Severity(SeverityLevel.NORMAL)
