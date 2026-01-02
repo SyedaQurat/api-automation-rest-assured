@@ -54,7 +54,10 @@ jobs:
         - name: Run tests
           run: | 
             mvn clean test -Dgroups=smoke
-            echo pwd
+
+        - name: Where am I
+          run: |
+            pwd
 
         - name: Debug Allure results
           run: |
