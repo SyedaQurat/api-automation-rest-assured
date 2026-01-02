@@ -16,30 +16,58 @@ jobs:
             distribution: 'temurin'
 
         - name: Build with Maven
-          run: mvn clean test
+          run: mvn clean compile
 
-        - name: Install Allure CLI
-          if: always()
-          run: |
-            wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
-            tar -zxvf allure-2.27.0.tgz
-            sudo rm -rf /opt/allure/allure-2.27.0
-            sudo rm -f /usr/bin/allure
-            sudo mv allure-2.27.0 /opt/allure
-            sudo ln -s /opt/allure/bin/allure /usr/bin/allure 
+    test:
+      name: Test
+      runs-on: ubuntu-latest
+      needs: build
 
-        - name: Generate Allure report
-          if: always()
-          run: |
-              allure generate target/allure-results --clean -o allure-report
-              ls -la allure-report
+      steps:
+        - uses: actions/checkout@v4
 
-        - name: Upload Allure report artifact
+        - uses: actions/setup-java@v4
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+
+        - name: Run tests
+          run: mvn test
+
+        - name: Upload Allure results
           if: always()
           uses: actions/upload-artifact@v4
           with:
-              name: allure-report
-              path: allure-report
+            name: allure-results
+            path: target/allure-results
+
+    report:
+      name: Allure Report
+      runs-on: ubuntu-latest
+      needs: test
+
+      steps:
+        - name: Download Allure results
+          uses: actions/download-artifact@v4
+          with:
+            name: allure-results
+            path: target/allure-results
+
+        - name: Install Allure CLI
+          run: |
+            wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+            tar -zxvf allure-2.27.0.tgz
+            sudo mv allure-2.27.0 /opt/allure
+            sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+
+        - name: Generate Allure report
+          run: allure generate target/allure-results --clean -o allure-report
+
+        - name: Upload Allure report
+          uses: actions/upload-artifact@v4
+          with:
+            name: allure-report
+            path: allure-report
 
 #        - name: Clean up Allure results
 #          run: rm -rf allure-results
