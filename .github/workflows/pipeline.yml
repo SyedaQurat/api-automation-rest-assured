@@ -35,9 +35,9 @@ jobs:
         - name: Prepare Allure folder
           run: |
             echo "Create target/allure-results:"
-            mkdir -p ${{ github.workspace }}/target/allure-results
+            mkdir -p target/allure-results
             echo "Listing target/allure-results:"
-            ls -la ${{ github.workspace }}/target/allure-results
+            ls -la target/allure-results
 
 
 #          if: always()
@@ -56,14 +56,12 @@ jobs:
           run: | 
             mvn clean test -Dgroups=smoke
 
-        - name: Where am I
-          run: |
-            pwd
-
         - name: Debug Allure results
           run: |
-            echo "List results in target/allure-results:"
-            ls -la ${{ github.workspace }}/target/allure-results
+              echo "Where am I:"
+              pwd
+              echo "List results in target/allure-results:"
+              ls -la target/allure-results || echo "Folder is empty or missing"
 
         - name: Upload Allure results
           if: always()
