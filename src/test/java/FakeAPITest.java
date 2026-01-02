@@ -2,12 +2,11 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.testng.AllureTestNg;
 import io.restassured.RestAssured;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-@Listeners({ AllureTestNg.class })
+@Listeners({io.qameta.allure.testng.AllureTestNg.class})
 @Feature("Products API")
 public class FakeAPITest {
 
