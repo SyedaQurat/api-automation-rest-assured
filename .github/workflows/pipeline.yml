@@ -38,7 +38,7 @@ jobs:
             echo "Listing target/allure-results:"
             ls -la target/allure-results
 
-#        - name: Debug Allure results
+
 #          if: always()
 #          run: |
 #            echo "Checking target/allure-results folder..."
@@ -53,6 +53,11 @@ jobs:
 
         - name: Run tests
           run: mvn clean test -Dgroups=smoke
+
+        - name: Debug Allure results
+          run: |
+            echo "target/allure-results:"
+            ls -la target/allure-results  
 
         - name: Upload Allure results
           if: always()
