@@ -37,7 +37,7 @@ jobs:
 
       - name: Generate Allure Report
         run: |
-          allure generate target/allure-results --clean -o target/allure-report
+          /opt/allure-2.27.0/bin/allure generate target/allure-results --clean -o target/allure-report
 
       - name: List Allure Report
         run: ls -la target/allure-report
