@@ -34,9 +34,10 @@ jobs:
 
         - name: Prepare Allure folder
           run: |
-            mkdir -p target/allure-results
+            echo "Create target/allure-results:"
+            mkdir -p ${{ github.workspace }}/target/allure-results
             echo "Listing target/allure-results:"
-            ls -la target/allure-results
+            ls -la ${{ github.workspace }}/target/allure-results
 
 
 #          if: always()
@@ -61,8 +62,8 @@ jobs:
 
         - name: Debug Allure results
           run: |
-            echo "target/allure-results:"
-            ls -la target/allure-results  
+            echo "List results in target/allure-results:"
+            ls -la ${{ github.workspace }}/target/allure-results
 
         - name: Upload Allure results
           if: always()
