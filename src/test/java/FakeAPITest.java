@@ -20,7 +20,7 @@ public class FakeAPITest {
     public void getProducts() {
         RestAssured.given()
                 .log().all()
-                .when().get(BASE_URL).then().statusCode(200);
+                .when().get("https://jsonplaceholder.typicode.com/posts/").then().statusCode(200);
     }
 
     @Test(groups = {"regression"})
