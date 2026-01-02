@@ -16,11 +16,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Maven
-        run: mvn clean compile
-
-      - name: Run Tests with Allure
-        run: mvn test -Dgroups=smoke
+      - name: Build & Test
+        run: mvn clean test -Dgroups=smoke
 
       - name: List Allure Results (Debug)
         run: |

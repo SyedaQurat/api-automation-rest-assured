@@ -11,7 +11,6 @@
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
-        <listener>io.qameta.allure.testng.AllureTestNg</listener>
     </properties>
 
     <dependencies>
@@ -68,12 +67,11 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <properties>
-                        <property>
-                            <name>listener</name>
-                            <value>io.qameta.allure.testng.AllureTestNg</value>
-                        </property>
-                    </properties>
+                    <systemPropertyVariables>
+                        <allure.results.directory>
+                            ${project.build.directory}/allure-results
+                        </allure.results.directory>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <!-- Allure Maven plugin -->
