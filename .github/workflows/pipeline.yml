@@ -52,7 +52,7 @@ jobs:
             fi    
 
         - name: Run tests
-          run: mvn test -Dgroups=smoke
+          run: mvn clean test -Dgroups=smoke
 
         - name: Upload Allure results
           if: always()
@@ -74,15 +74,15 @@ jobs:
             name: allure-results
             path: target/allure-results
 
-        - name: Install Allure CLI
-          run: |
-            wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
-            tar -zxvf allure-2.27.0.tgz
-            sudo mv allure-2.27.0 /opt/allure
-            sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+#        - name: Install Allure CLI
+#          run: |
+#            wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+#            tar -zxvf allure-2.27.0.tgz
+#            sudo mv allure-2.27.0 /opt/allure
+#            sudo ln -s /opt/allure/bin/allure /usr/bin/allure
 
         - name: Generate Allure report
-          run: allure generate target/allure-results --clean -o allure-report || echo "No results found"
+          run: mvn allure:report
 
         - name: Upload Allure report
           uses: actions/upload-artifact@v4
